@@ -17,25 +17,22 @@ import java.util.List;
 /**
  * Test "secondary sort" using repartitionAndSortWithinPartitions()
  * defined as:
- * 
- *      public JavaPairRDD<K,V> repartitionAndSortWithinPartitions(
- *                                     org.apache.spark.Partitioner partitioner,
- *                                     java.util.Comparator<K> comp)
- * 
- *      Description: Repartition the RDD according to the given partitioner and, 
- *                   within each resulting partition, sort records by their keys.
- *                   This is more efficient than calling repartition and then sorting 
- *                   within each partition because it can push the sorting down into 
- *                   the shuffle machinery.
- * 
- *                   Partitioner: an object that defines how the elements in a key-value 
- *                   pair RDD are partitioned by key. Maps each key to a partition ID, 
- *                   from 0 to numPartitions - 1.
+ * <p>
+ * public JavaPairRDD<K,V> repartitionAndSortWithinPartitions(
+ * org.apache.spark.Partitioner partitioner,
+ * java.util.Comparator<K> comp)
+ * <p>
+ * Description: Repartition the RDD according to the given partitioner and,
+ * within each resulting partition, sort records by their keys.
+ * This is more efficient than calling repartition and then sorting
+ * within each partition because it can push the sorting down into
+ * the shuffle machinery.
+ * <p>
+ * Partitioner: an object that defines how the elements in a key-value
+ * pair RDD are partitioned by key. Maps each key to a partition ID,
+ * from 0 to numPartitions - 1.
  *
- * 
- * 
  * @author Mahmoud Parsian (mahmoud.parsian@yahoo.com)
- *
  */
 public class RepartitionAndSortWithinPartitionsExample1 implements Serializable {
 
@@ -57,13 +54,15 @@ public class RepartitionAndSortWithinPartitionsExample1 implements Serializable 
         //
         return pairs;
     }
-    
+
     static JavaSparkContext getJavaSparkContext(String appName) {
-        SparkConf conf = new SparkConf();
+        /*SparkConf conf = new SparkConf();
         conf.setAppName(appName);
-        return new JavaSparkContext(conf);        
+        return new JavaSparkContext(conf);*/
+        // local
+        return new JavaSparkContext("local", appName);
     }
-    
+
     public static void main(String[] args) {
 
         // create a context
@@ -82,6 +81,7 @@ public class RepartitionAndSortWithinPartitionsExample1 implements Serializable 
             public int numPartitions() {
                 return 3;
             }
+
             @Override
             public int getPartition(Object key) {
                 // will return 0, 1, or 2
@@ -91,7 +91,7 @@ public class RepartitionAndSortWithinPartitionsExample1 implements Serializable 
 
         JavaPairRDD<Integer, Integer> repartitioned = rdd.repartitionAndSortWithinPartitions(partitioner);
         List<List<Tuple2<Integer, Integer>>> partitions = repartitioned.glom().collect();
-        
+
         // examine the output
         System.out.println("partition: 0 : " + partitions.get(0));
         System.out.println("partition: 1 : " + partitions.get(1));

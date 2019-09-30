@@ -41,6 +41,7 @@ public class SecondarySortUsingRepartitionAndSortWithinPartitions implements Ser
 
     private static final long serialVersionUID = -4936134638714686170L;
 
+    // 1 hdfs://cm01:8020/test/input hdfs://cm01:8020/test/ouput
     public static void main(String[] args) {
         if (args.length != 3) {
             System.err.println("Usage <number-of-partitions> <input-dir> <output-dir>");
@@ -53,7 +54,8 @@ public class SecondarySortUsingRepartitionAndSortWithinPartitions implements Ser
 
         SparkConf conf = new SparkConf();
         conf.setAppName("SecondarySort");
-        final JavaSparkContext sc = new JavaSparkContext(conf);
+//        final JavaSparkContext sc = new JavaSparkContext(conf);
+        final JavaSparkContext sc = new JavaSparkContext("local","SecondarySort");
 
         JavaRDD<String> input = sc.textFile(inputPath);
 

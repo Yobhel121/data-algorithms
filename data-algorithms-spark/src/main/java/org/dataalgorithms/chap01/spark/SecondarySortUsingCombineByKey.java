@@ -21,7 +21,7 @@ import java.util.TreeMap;
 //
 
 
-/** 
+/**
  * SecondarySortUsingCombineByKey class implements the secondary sort design pattern 
  * by using combineByKey().
  *
@@ -51,7 +51,7 @@ import java.util.TreeMap;
  *  y => [7,  5,   1]
  *  z => [4,  8,   7,   0]
  *  p => [10, null, 60, 40, null , 20]
- * 
+ *
  *  x => [(1,3), (2,9), (3,6)]            where 1 < 2 < 3
  *  y => [(1,7), (2,5), (3,1)]            where 1 < 2 < 3 
  *  z => [(1,4), (2,8), (3,7), (4,0)]     where 1 < 2 < 3 < 4
@@ -62,6 +62,7 @@ import java.util.TreeMap;
  */
 public class SecondarySortUsingCombineByKey {
 
+    // hdfs://cm01:8020/test/input hdfs://cm01:8020/test/ouput
     public static void main(String[] args) throws Exception {
 
         // STEP-1: read input parameters and validate them
@@ -75,7 +76,7 @@ public class SecondarySortUsingCombineByKey {
         System.out.println("outputPath=" + outputPath);
 
         // STEP-2: Connect to the Sark master by creating JavaSparkContext object
-        final JavaSparkContext ctx = SparkUtil.createJavaSparkContext();
+        final JavaSparkContext ctx = SparkUtil.createJavaSparkContext("local","SecondarySortUsingCombineByKey");
 
         // STEP-3: Use ctx to create JavaRDD<String>
         //  input record format: <name><,><time><,><value>
@@ -83,7 +84,7 @@ public class SecondarySortUsingCombineByKey {
 
         // STEP-4: create (key, value) pairs from JavaRDD<String> where
         // key is the {name} and value is a pair of (time, value).
-        // The resulting RDD will be JavaPairRDD<String, Tuple2<Integer, Integer>>.    
+        // The resulting RDD will be JavaPairRDD<String, Tuple2<Integer, Integer>>.
         // convert each record into Tuple2(name, time, value)
         // PairFunction<T, K, V>	T => Tuple2(K, V) where K=String and V=Tuple2<Integer, Integer>
         //                                                                                     input   K       V
@@ -98,11 +99,11 @@ public class SecondarySortUsingCombineByKey {
             }
         });
 
-        // STEP-5: validate STEP-4, we collect all values from JavaPairRDD<> and print it.    
+        // STEP-5: validate STEP-4, we collect all values from JavaPairRDD<> and print it.
         List<Tuple2<String, Tuple2<Integer, Integer>>> output = pairs.collect();
         for (Tuple2 t : output) {
             Tuple2<Integer, Integer> timevalue = (Tuple2<Integer, Integer>) t._2;
-            System.out.println(t._1 + "," + timevalue._1 + "," + timevalue._1);
+            System.out.println(t._1 + "," + timevalue._1 + "," + timevalue._2);
         }
 
         // How to use combineByKey(): to use combineByKey(), you 
@@ -111,8 +112,8 @@ public class SecondarySortUsingCombineByKey {
         //    function 1: create a combiner data structure 
         //    function 2: merge a value into a combined data structure
         //    function 3: merge two combiner data structures
-        
-        
+
+
         // function 1: create a combiner data structure         
         // Here, the combiner data structure is a SortedMap<Integer,Integer>,
         // which keeps track of (time, value) for a given key
@@ -176,7 +177,7 @@ public class SecondarySortUsingCombineByKey {
 
         // done!
         ctx.close();
-        
+
         // exit
         System.exit(0);
     }

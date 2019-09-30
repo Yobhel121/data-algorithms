@@ -38,12 +38,12 @@ object SecondarySort {
       ((line(0) + "-" + line(1), line(2).toInt), line(2).toInt)
     })    
 
-    implicit def tupleOrderingDesc = new Ordering[Tuple2[String, Int]] {
+   /* implicit def tupleOrderingDesc = new Ordering[Tuple2[String, Int]] {
       override def compare(x: Tuple2[String, Int], y: Tuple2[String, Int]): Int = {
         if (y._1.compare(x._1) == 0) y._2.compare(x._2)
         else y._1.compare(x._1)
       }
-    }
+    }*/
 
     val sorted = valueToKey.repartitionAndSortWithinPartitions(new CustomPartitioner(partitions))
 

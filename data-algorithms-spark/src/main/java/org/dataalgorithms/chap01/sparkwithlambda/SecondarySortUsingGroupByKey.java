@@ -93,7 +93,7 @@ public class SecondarySortUsingGroupByKey {
     List<Tuple2<String, Tuple2<Integer, Integer>>> output = pairs.collect();
     for (Tuple2 t : output) {
        Tuple2<Integer, Integer> timevalue = (Tuple2<Integer, Integer>) t._2;
-       System.out.println(t._1 + "," + timevalue._1 + "," + timevalue._1);
+       System.out.println(t._1 + "," + timevalue._1 + "," + timevalue._2);
     }
 
     // STEP-6: We group JavaPairRDD<> elements by the key ({name}). 

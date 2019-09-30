@@ -56,6 +56,7 @@ public class SecondarySortUsingGroupByKey {
   public static void main(String[] args) throws Exception {
   
     // STEP-1: read input parameters and validate them
+    // hdfs://cm01:8020/test/input hdfs://cm01:8020/test/ouput
     if (args.length < 2) {
         System.err.println("Usage: SecondarySortUsingGroupByKey <input> <output>");
         System.exit(1);
@@ -66,7 +67,7 @@ public class SecondarySortUsingGroupByKey {
     System.out.println("outputPath=" + outputPath);
 
     // STEP-2: Connect to the Spark master by creating JavaSparkContext object
-    final JavaSparkContext ctx = SparkUtil.createJavaSparkContext("SecondarySorting");
+    final JavaSparkContext ctx = SparkUtil.createJavaSparkContext("local","SecondarySorting");
 
     // STEP-3: Use ctx to create JavaRDD<String>
     //  input record format: <name><,><time><,><value>
