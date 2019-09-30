@@ -53,6 +53,8 @@ import java.util.List;
  *
  */
 public class SecondarySortUsingGroupByKey {
+
+  //hdfs://cm01:8020/test/input/ hdfs://cm01:8020/test/ouput/
   public static void main(String[] args) throws Exception {
   
         // STEP-1: read input parameters and validate them
@@ -67,7 +69,7 @@ public class SecondarySortUsingGroupByKey {
 
 
     // STEP-2: Connect to the Sark master by creating JavaSparkContext object
-    final JavaSparkContext ctx = SparkUtil.createJavaSparkContext();
+    final JavaSparkContext ctx = SparkUtil.createJavaSparkContext("local","SecondarySortUsingCombineByKey");
 
     // STEP-3: Use ctx to create JavaRDD<String>
     //  input record format: <name><,><time><,><value>
