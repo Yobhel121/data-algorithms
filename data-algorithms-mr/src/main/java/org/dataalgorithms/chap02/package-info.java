@@ -5,6 +5,6 @@
  * @author Mahmoud Parsian
  *
  */
-package chap01;
+package org.dataalgorithms.chap02;
 
 //rest of the file is empty

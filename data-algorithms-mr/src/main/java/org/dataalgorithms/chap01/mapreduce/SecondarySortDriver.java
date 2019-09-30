@@ -1,4 +1,4 @@
-package chap01.mapreduce;
+package org.dataalgorithms.chap01.mapreduce;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;

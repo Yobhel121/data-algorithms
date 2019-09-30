@@ -6,6 +6,6 @@
  * @author Mahmoud Parsian
  *
  */
-package chap01.mapreduce;
+package org.dataalgorithms.chap01.mapreduce;
 
 //rest of the file is empty
