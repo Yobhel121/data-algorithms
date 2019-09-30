@@ -1,0 +1,7 @@
+
+*.class
+.idea/*
+data-algorithms.iml
+data-algorithms-mr/dataalgorithmsmr.iml
+data-algorithms-spark/dataalgorithmsspark.iml
+*/target/*
