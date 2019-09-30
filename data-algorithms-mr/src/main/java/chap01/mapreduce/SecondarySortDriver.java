@@ -77,6 +77,7 @@ public class SecondarySortDriver extends Configured implements Tool {
      *
      * @throws Exception When there is communication problems with the job tracker.
      */
+    // hdfs://cm01:8020/test/input hdfs://cm01:8020/test/ouput
     public static int submitJob(String[] args) throws Exception {
         //String[] args = new String[2];
         //args[0] = inputDir;       hdfs://cm01:8020/test/input
