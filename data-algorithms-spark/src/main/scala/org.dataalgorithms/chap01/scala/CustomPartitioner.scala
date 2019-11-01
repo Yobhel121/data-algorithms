@@ -1,4 +1,4 @@
-package org.dataalgorithms.scala
+package org.dataalgorithms.chap01.scala
 
 import org.apache.spark.Partitioner
 
